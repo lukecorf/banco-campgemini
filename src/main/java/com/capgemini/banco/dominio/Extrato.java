@@ -28,7 +28,7 @@ public class Extrato implements Serializable {
 
     @NotNull
     @JoinColumn(name = "CONTA_ID", referencedColumnName = "ID")
-    @OneToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY)
     private Conta contaExtrato;
 
     @NotNull

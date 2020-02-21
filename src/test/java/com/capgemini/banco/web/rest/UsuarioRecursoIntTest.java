@@ -50,17 +50,6 @@ public class UsuarioRecursoIntTest extends BaseIntUtil {
     }
 
     @Test
-    public void salvarComId() throws Exception {
-        UsuarioDTO usuario = usuarioBuilder.construirDTO();
-        usuario.setId(2L);
-        getMockMvc().perform(post(URL)
-                .contentType(TestUtil.APPLICATION_JSON_UTF8)
-                .content(TestUtil.convertObjectToJsonBytes(usuario)))
-                .andExpect(status().isBadRequest());
-
-    }
-
-    @Test
     public void buscarPorId() throws Exception {
         UsuarioDTO usuario = usuarioBuilder.construirDTO();
 
