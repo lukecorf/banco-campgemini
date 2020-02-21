@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd
+    http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd">
+
+    <changeSet author="Lucas" id="001">
+        <createTable tableName="USUARIO" remarks="Armazena as informacoes de usuario.">
+            <column autoIncrement="true" name="ID" type="NUMBER" remarks="Chave primaria unica da tabela Usuario.">
+                <constraints primaryKey="true"/>
+            </column>
+            <column name="NOME" type="VARCHAR(255)" remarks="Indica o nome do usuario.">
+                <constraints nullable="false"/>
+            </column>
+            <column name="CPF" type="VARCHAR(11)" remarks="Indica o CPF do usuario sem mascara.">
+                <constraints nullable="false"/>
+            </column>
+            <column name="IDADE" type="NUMBER(3,0)" remarks="Indica a idade do usuario.">
+                <constraints nullable="false"/>
+            </column>
+            <column name="SEXO" remarks="Indicador do sexo do usuario. Opcoes (0 - Feminino, 1 - Masculino)." type="NUMBER(1, 0)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+        <createSequence incrementBy="1" sequenceName="SEQ_USUARIO" startValue="1"/>
+        <rollback>
+            <dropTable tableName="USUARIO"/>
+        </rollback>
+    </changeSet>
+
+    <changeSet author="Lucas" id="002">
+        <createTable tableName="CONTA" remarks="Armazena as informacoes de Conta.">
+            <column autoIncrement="true" name="ID" type="NUMBER" remarks="Chave primaria unica da tabela Conta.">
+                <constraints primaryKey="true"/>
+            </column>
+            <column name="SALDO" type="NUMBER(10, 2)" remarks="Indica o saldo monetario na conta.">
+                <constraints nullable="false"/>
+            </column>
+            <column name="USUARIO_ID" type="NUMBER" remarks="Indica a chave extrangeira que liga a conta ao usuario.">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+        <createSequence incrementBy="1" sequenceName="SEQ_CONTA" startValue="1"/>
+        <addForeignKeyConstraint constraintName="CONTA_USUARIO_FK" baseTableName="CONTA" baseColumnNames="USUARIO_ID" referencedTableName="USUARIO" referencedColumnNames="ID"/>
+        <rollback>
+            <dropTable tableName="CONTA"/>
+        </rollback>
+    </changeSet>
+
+    <changeSet author="Lucas" id="003">
+        <createTable tableName="EXTRATO" remarks="Armazena as informacoes de Extrato da conta.">
+            <column autoIncrement="true" name="ID" type="NUMBER" remarks="Chave primaria unica da tabela Extrato.">
+                <constraints primaryKey="true"/>
+            </column>
+            <column name="VALOR" type="NUMBER(10, 2)" remarks="Indica o valor do extrato.">
+                <constraints nullable="false"/>
+            </column>
+            <column name="CONTA_ID" type="NUMBER" remarks="Indica a chave extrangeira que liga a extrato a conta.">
+                <constraints nullable="false"/>
+            </column>
+            <column name="TIPO_OPERACAO" remarks="Indicador do tipo de operacao. Opcoes (0 - Deposito, 1 - Saque)." type="NUMBER(1, 0)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+        <createSequence incrementBy="1" sequenceName="SEQ_EXTRATO" startValue="1"/>
+        <addForeignKeyConstraint constraintName="EXTRATO_USUARIO_FK" baseTableName="EXTRATO" baseColumnNames="CONTA_ID" referencedTableName="CONTA" referencedColumnNames="ID"/>
+        <rollback>
+            <dropTable tableName="CONTA"/>
+        </rollback>
+    </changeSet>
+
+</databaseChangeLog>

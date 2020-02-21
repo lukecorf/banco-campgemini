@@ -1,0 +1,53 @@
+<h1>{{titulo}}</h1>
+<div class="ui-g-12 ui-md-12 ui-sm-12">
+    <p-fieldset [legend]="'informações da Conta'">
+          <div class="ui-g-12 ui-md-12 ui-sm-12">
+              <h1>Saldo: {{conta.saldo}} R$</h1>
+          </div>
+          <div class="ui-g-6 ui-md-6 ui-sm-12">
+            <h2>Proprietario: {{conta.proprietario.nome}}</h2>
+          </div>
+          <div class="ui-g-6 ui-md-6 ui-sm-12">
+            <h2>Nr da Conta: {{conta.id}}</h2>
+          </div>
+          <div class="ui-g-6 ui-md-6 ui-sm-12">
+            <button pButton name="sacar" id="sacar" label="Sacar" class="ui-button-warning w100" (click)="abreModalSacar()" ></button>
+          </div>
+          <div class="ui-g-6 ui-md-6 ui-sm-12">
+            <button pButton name="depositar" id="depositar" label="Depositar" class="ui-button-info w100" (click)="abreModalDepositar()" ></button>
+          </div>
+          <div class="ui-g-12 ui-md-12 ui-sm-12">
+              <p-accordion>
+                  <p-accordionTab header="Extrato">
+                      <p-dataTable [value]="extratoList"  [emptyMessage]="'Não existem extratos para essa conta.'" dataKey="id">
+                        <p-column field="valor" header="Valor">
+                          <ng-template let-item="rowData" pTemplate="body">
+                                <span [ngClass]="(item.operacao.toString() == 'SAQUE') ? 'txVermelho' : 'txVerde'" >
+                                    {{item.valor}} R$
+                                </span>
+                          </ng-template>
+                        </p-column>
+                        <p-column field="operacao" header="Tipo">
+                            <ng-template let-item="rowData" pTemplate="body">
+                                <span [ngClass]="(item.operacao.toString() === 'SAQUE') ? 'txVermelho' : 'txVerde'">
+                                    {{(item.operacao.toString() === "SAQUE") ? 'Saque' : 'Deposito'}}
+                                </span>
+                            </ng-template>
+                        </p-column>
+                      </p-dataTable>
+                  </p-accordionTab>
+              </p-accordion>
+          </div>
+    </p-fieldset>
+  <div class="ui-g-12 ui-md-12 ui-sm-12">
+    <button pButton name="voltar" id="voltar" label="Voltar" class="ui-button-danger w100" (click)="retornarListagem()" ></button>
+  </div>
+</div>
+<p-dialog header="{{operacao}}" [(visible)]="mostrarModal" >
+    {{mensagem}}
+    <input pInputText type="number" [(ngModel)]="valor">
+    <p-footer>
+        <button type="button" pButton icon="fa-close" (click)="fecharDialog()" label="Cancelar"></button>
+        <button type="button" pButton icon="fa-check"  label="{{operacao}}" (click)="realizarTarefa();"></button>
+    </p-footer>
+</p-dialog>

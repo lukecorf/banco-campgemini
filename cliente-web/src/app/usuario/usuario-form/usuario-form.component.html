@@ -1,0 +1,46 @@
+<h1>{{titulo}}</h1>
+<form name="editForm" novalidate #editForm="ngForm">
+  <div class="ui-g-12 ui-sm-12 ui-md-12 ui-lg-12 ui-xl-12">
+    <p-fieldset [legend]="'Dados'">
+      <div class="ui-g-6 ui-sm-12 ui-md-6 doisRem" >
+          <span class="md-inputfield">
+              <label class="float-label">Nome</label>
+              <input type="text"  class="w100 doisRemTop" [name]="'nome'" [id]="'nome'" [required]="true" [(ngModel)]="usuario.nome" pInputText />
+          </span>
+      </div>
+      <div class="ui-g-6 ui-sm-12 ui-md-6 doisRem" >
+            <span>
+                <label class="float-label">CPF</label>
+                <input type="text"  class="w100 doisRemTop" [name]="'cpf'" [(ngModel)]="usuario.cpf"  oninput="this.value=this.value.replace(/[^0-9]/g,'');" [maxlength]="11" pInputText />
+            </span>
+      </div>
+    <div class="ui-g-6 ui-sm-12 ui-md-6 doisRem" >
+            <span>
+                <label class="float-label">Idade</label>
+                <input type="number"  class="w100 doisRemTop" [name]="'idade'" [(ngModel)]="usuario.idade" [min]="0" [max]="150" pInputText />
+            </span>
+    </div>
+    <div class="ui-g-6 ui-sm-12 ui-md-6 doisRem">
+      <div class="doisRemTop">
+        <p-radioButton *ngFor="let t of sexoLista"
+                       value={{t.value}}
+                       label={{t.label}}
+                       name="sexo"
+                       [required]="true"
+                       [(ngModel)]="usuario.sexo" >
+        </p-radioButton>
+      </div>
+    </div>
+    </p-fieldset>
+  </div>
+
+
+  <div class="ui-g-12 ui-sm-12 ui-md-12 ui-lg-12 ui-xl-12">
+    <div class="ui-g-6 ui-sm-12 ui-md-6 ui-lg-6 ui-xl-6">
+      <button pButton id="cancelar" icon="ui-icon-close" [label]="'Cancelar'" class="ui-button-danger w100" (click)="retornarListagem()"></button>
+    </div>
+    <div class="ui-g-6 ui-sm-12 ui-md-6 ui-lg-6 ui-xl-6" >
+      <button pButton name="salvar" id="salvar" type="submit" icon="ui-icon-save" label="Salvar" class="ui-button-success w100" (click)="salvar(editForm)" ></button>
+    </div>
+  </div>
+</form>

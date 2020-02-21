@@ -1,0 +1,26 @@
+<div class="ui-g ui-fluid">
+  <div class="ui-g-12">
+    <h1>Lista de Usuarios</h1>
+    <div class="ui-g">
+        <div class="ui-g-12 ui-md-12 ui-sm-12">
+          <div class="ui-g-1 ui-md-1 ui-sm-12">
+              <button pButton  icon="fa fa-fw fa-plus" (click)="novo()" [title]="'Inserir Usuario'" class="ui-button-success"></button>
+          </div>
+          <div class="ui-g-1 ui-md-1 ui-sm-12">
+              <button pButton  icon="fa fa-fw fa-edit" (click)="editar()" [title]="'Editar Usuario'" [disabled]="!usuarioSelecionado" class="ui-button-info"></button>
+          </div>
+
+          <div class="ui-g-1 ui-md-1 ui-sm-12">
+              <button pButton  icon="fa fa-fw fa-dollar" (click)="conta()" [title]="'Conta'" [disabled]="!usuarioSelecionado" class="ui-button-warning"></button>
+          </div>
+        </div>
+        <div class="ui-g-12 ui-md-12 ui-sm-12">
+            <p-dataTable [value]="usuarios" [(selection)]="usuarioSelecionado" [emptyMessage]="'Não existem usuarios cadastrados.'" [selectionMode]="'single'" dataKey="id">
+              <p-column field="nome" header="Nome"></p-column>
+              <p-column field="cpf" header="CPF"></p-column>
+              <p-column field="idade" header="Idade"></p-column>
+            </p-dataTable>
+        </div>
+    </div>
+  </div>
+</div>

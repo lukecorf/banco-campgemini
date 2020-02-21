@@ -1,0 +1,26 @@
+.w100{
+  width: 100%;
+}
+.dialog-class{
+  width: 90%;
+}
+
+.umRemTop{
+  margin-top: 1rem;
+}
+
+.doisRemTop{
+  margin-top: 2rem;
+}
+
+.doisRem{
+  padding: 1rem;
+}
+
+.txVermelho{
+  color: red;
+}
+
+.txVerde{
+  color: green;
+}
